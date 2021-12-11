@@ -1,3 +1,10 @@
+# -*- coding: utf-8 -*-
+"""
+Created on Sat Dec 11 14:30:50 2021
+
+@author: diego
+"""
+###Full disclosure due to confusion during finals I did receive some help from my tutor roommate!
 import random
 import threading
 import time
@@ -9,10 +16,46 @@ k =20
 buffer = [0 for i in range(n)]
 
 
-def CosumerFunction():
-    
+def ConsumerFunction():
+    global n
+    global k
+    global t
+    global buffer
+    next_out = 0
+    while 1:
+        t2 = random.randint(0, t)
+        time.sleep(t2)
+        k2 = random.randint(0, k)
+        for i in range(0, k2):
+            data = buffer[(next_out + i % n) % n]
+            if data > 1:
+                print("Race condition:",buffer)
+                return
+            buffer[(next_out + i % n) % n] = 0
+        next_out = (next_out + k2 % n) % n
+        print("Consumer:",buffer)
     
     
     
     
 def ProducerFunction():
+    global n
+    global k
+    global t
+    global buffer
+    next_in = 0
+    while 1:
+        k1 = random.randint(0, k)
+        for i in range(0, k1):
+            buffer[(next_in + i % n) % n] += 1
+        next_in = (next_in + k1 % n) % n
+        t1 = random.randint(0, t)
+        print("Producer:",buffer)
+        time.sleep(t1)
+        
+
+if __name__ == "__main__":
+    ProducerFunction = threading.Thread(target=ProducerFunction, daemon=True)
+    ConsumerFunction = threading.Thread(target=ConsumerFunction)
+    ProducerFunction.start()
+    ConsumerFunction.start()
