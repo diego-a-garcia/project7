@@ -1,0 +1,18 @@
+import random
+import threading
+import time
+
+
+n = 64
+t = 4
+k =20
+buffer = [0 for i in range(n)]
+
+
+def CosumerFunction():
+    
+    
+    
+    
+    
+def ProducerFunction():
