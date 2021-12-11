@@ -18,8 +18,8 @@ buffer = [0 for i in range(n)]
 
 def ConsumerFunction():
     global n
-    global k
     global t
+    global k
     global buffer
     next_out = 0
     while 1:
@@ -40,8 +40,8 @@ def ConsumerFunction():
     
 def ProducerFunction():
     global n
-    global k
     global t
+    global k
     global buffer
     next_in = 0
     while 1:
